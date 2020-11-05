@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhaomenghan.dao.ProductDao">
+    <!-- 查询所有产品 -->
+    <select id="selectAllProduct" resultType="com.zhaomenghan.domain.Product">
+        select * from product
+    </select>
+    <!-- 添加产品 -->
+    <insert id="insertProduct" parameterType="com.zhaomenghan.domain.Product">
+        insert into product(typeId,name,surface,standard,diameter,image) values(#{typeId},#{name},#{surface},#{standard},#{diameter},#{image})
+    </insert>
+    <!-- 通过编号查询产品 -->
+    <select id="selectProductById" parameterType="Integer" resultType="com.zhaomenghan.domain.Product">
+        select * from product where id = #{id}
+    </select>
+    <!-- 通过类型查询产品 -->
+    <select id="selectProductByType" parameterType="com.zhaomenghan.domain.Type" resultType="com.zhaomenghan.domain.Product">
+        select * from product where typeId = #{typeId}
+    </select>
+    <!-- 通过JavaBean查询产品 -->
+    <!--<select id="selectByBean" parameterType="com.zhaomenghan.domain.Product" resultType="com.zhaomenghan.domain.Product">
+        select * from product
+        <where>
+            <if test="typeId != null and typeId != '' ">
+                typeId = #{typeId}
+            </if>
+
+            <if test="name != null and name != '' ">
+                and name like concat('%',#{name},'%')
+            </if>
+        </where>
+    </select>-->
+    <!-- 查询产品总数 -->
+    <!--<select id="selectCount" resultType="Integer">
+        select count(*) from product
+        <where>
+            <if test="typeId != null">
+              and typeId = #{typeId}
+            </if>
+        </where>
+    </select>-->
+    <!-- 分页查询产品 -->
+    <!--<select id="selectByPage" parameterType="Map" resultType="com.zhaomenghan.domain.Product">
+        select * from product
+        <where>
+            <if test="typeId != null and typeId != '' ">
+                and typeId = #{typeId}
+            </if>
+        </where>
+        <if test="start != null and rows !=0">
+            limit #{start},#{rows}
+        </if>
+    </select>-->
+    <!-- 按ID删除产品 -->
+    <delete id="deleteProductById" parameterType="Integer">
+        delete from product where id = #{id}
+    </delete>
+    <!-- 修改产品 -->
+    <update id="updateProductByBean" parameterType="com.zhaomenghan.domain.Product">
+        update product
+        <set>
+            <if test="typeId != null and typeId != ''">
+                typeId = #{typeId},
+            </if>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="surface != null and surface != ''">
+                surface = #{surface},
+            </if>
+            <if test="standard != null and surface != '' ">
+                standard = #{standard},
+            </if>
+            <if test="diameter != null and diameter != ''">
+                diameter = #{diameter},
+            </if>
+            <if test="image != null and image != ''">
+                image = #{image}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+</mapper>
